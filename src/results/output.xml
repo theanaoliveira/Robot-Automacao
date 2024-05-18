@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.12.3 on linux)" generated="2024-05-18T03:18:07.278084" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests" source="/app/tests">
+<suite id="s1-s1" name="Api" source="/app/tests/api">
+<suite id="s1-s1-s1" name="Components" source="/app/tests/api/components.robot">
+<test id="s1-s1-s1-t1" name="Chamar api para obter a lista de components" line="14">
+<kw name="Dado que eu acesse a tela de componentes">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-05-18T03:18:07.349752" level="INFO">Creating Session using : alias=keycloak, url=http://sisfolha-api-dev.intranet.policiamilitar.sp.gov.br/keycloak, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>keycloak</arg>
+<arg>http://sisfolha-api-dev.intranet.policiamilitar.sp.gov.br/keycloak</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-05-18T03:18:07.349637" elapsed="0.000256"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.350202" level="INFO">${data} = grant_type=password&amp;client_id=sso&amp;client_secret=RpdVzyIKKr02u64TvdeP14gUKKQNj8i8&amp;username=62025158050&amp;password=automacao</msg>
+<var>${data}</var>
+<arg>grant_type=password&amp;client_id=${client_id}&amp;client_secret=${client_secret}&amp;username=${username}&amp;password=${password}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.349994" elapsed="0.000227"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.350549" level="INFO">${headers} = {'Content-Type': 'application/x-www-form-urlencoded'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=${content_type}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.350310" elapsed="0.000255"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2024-05-18T03:18:07.590404" level="INFO">POST Request : url=http://sisfolha-api-dev.intranet.policiamilitar.sp.gov.br/keycloak/realms/CIAF/protocol/openid-connect/token 
+ path_url=/keycloak/realms/CIAF/protocol/openid-connect/token 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': '120'} 
+ body=grant_type=password&amp;client_id=sso&amp;client_secret=RpdVzyIKKr02u64TvdeP14gUKKQNj8i8&amp;username=62025158050&amp;password=automacao 
+ </msg>
+<msg time="2024-05-18T03:18:07.590482" level="INFO">POST Response : url=http://sisfolha-api-dev.intranet.policiamilitar.sp.gov.br/keycloak/realms/CIAF/protocol/openid-connect/token 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json', 'Content-Length': '2609', 'Connection': 'keep-alive', 'Cache-Control': 'no-store', 'Pragma': 'no-cache', 'Set-Cookie': 'KEYCLOAK_LOCALE=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/keycloak/realms/CIAF/; HttpOnly, KC_RESTART=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/keycloak/realms/CIAF/; HttpOnly, KC_AUTH_STATE=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/keycloak/realms/CIAF/', 'Referrer-Policy': 'no-referrer', 'Strict-Transport-Security': 'max-age=31536000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'SAMEORIGIN', 'X-XSS-Protection': '1; mode=block', 'Server': 'APISIX'} 
+ body={"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJvcTRrRjlfLTJweE9UTEt1Y0drNDJzRHZvNmFzNnBWbVZ3X25KRjJQYWc0In0.eyJleHAiOjE3MTYwMzQwODcsImlhdCI6MTcxNjAwMjI4NywianRpIjoiZjI2NzRiZDQtMmM3YS00OWFjLTg2MmEtZjNlNjZjMzU3MDY0IiwiaXNzIjoiaHR0cDovL3Npc2ZvbGhhLWFwaS1kZXYuaW50cmFuZXQucG9saWNpYW1pbGl0YXIuc3AuZ292LmJyL2tleWNsb2FrL3JlYWxtcy9DSUFGIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImU2MTNiZjQwLTQ0Y2UtNDY2MC1hMzgxLTg2ZDRmMzVlOTkzMCIsInR5cCI6IkJlYXJlciIsImF6cCI6InNzbyIsInNlc3Npb25fc3RhdGUiOiJiYTM1NmJiMC05YzU2LTRkYWEtOTFlZi1hYTMwNjE2NzI3Y2EiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHBzOi8vc2lzZm9saGEtZGV2LmludHJhbmV0LnBvbGljaWFtaWxpdGFyLnNwLmdvdi5iciIsImh0dHA6Ly9zaXNmb2xoYS1kZXYuaW50cmFuZXQucG9saWNpYW1pbGl0YXIuc3AuZ292LmJyIiwiaHR0cDovL2xvY2FsaG9zdCIsImh0dHA6Ly9sb2NhbGhvc3Q6OTAwMyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiQWRtaW5pc3RyYWRvciIsImRlZmF1bHQtcm9sZXMtY2lhZiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiJiYTM1NmJiMC05YzU2LTRkYWEtOTFlZi1hYTMwNjE2NzI3Y2EiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJBVVRPTUHDh8ODTyBURVNURVMiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiI2MjAyNTE1ODA1MCIsImdpdmVuX25hbWUiOiJBVVRPTUHDh8ODTyIsImZhbWlseV9uYW1lIjoiVEVTVEVTIn0.nPRLL0hDwyhJ-mAKIk6VSkZZe-FipfWs1y019y-QWFveqVuxk5XGbImzd3dUQCLd-xSlmiayyQGwWkjdk_ZRNHyZqfC21B3f19Gb0PTP0ELqQuEVKUzqBafzV4QGwgp3yToT71iLeZFGKNusYCY8c7j_Hb1RKuX7BafhDCnNg5emluS3BYQK9LNqRlUgRUTiACpoFI4yh_jv_xvViM7NAFZV8ZlRRXSQ3NBT-hC3TtBG1B9_V6UyKKhWrp51jKhTdstbZBDFv-05STkl2FVvYtcdR8phCD0wUC8GpZQWKv2o82hm3UCkUWyS4ynvO5A_aRiLbTEdmFvPyYVGGNNSrQ","expires_in":31800,"refresh_expires_in":1800,"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3OTIyYTQ3YS1jMjhiLTQzYTAtYjE5NS0yNjQwZDZkNTA4YjMifQ.eyJleHAiOjE3MTYwMDQwODcsImlhdCI6MTcxNjAwMjI4NywianRpIjoiNDg3NmViZDYtOTg4OC00OTFiLWJjYWItZmM1NGE0ZjUwN2M3IiwiaXNzIjoiaHR0cDovL3Npc2ZvbGhhLWFwaS1kZXYuaW50cmFuZXQucG9saWNpYW1pbGl0YXIuc3AuZ292LmJyL2tleWNsb2FrL3JlYWxtcy9DSUFGIiwiYXVkIjoiaHR0cDovL3Npc2ZvbGhhLWFwaS1kZXYuaW50cmFuZXQucG9saWNpYW1pbGl0YXIuc3AuZ292LmJyL2tleWNsb2FrL3JlYWxtcy9DSUFGIiwic3ViIjoiZTYxM2JmNDAtNDRjZS00NjYwLWEzODEtODZkNGYzNWU5OTMwIiwidHlwIjoiUmVmcmVzaCIsImF6cCI6InNzbyIsInNlc3Npb25fc3RhdGUiOiJiYTM1NmJiMC05YzU2LTRkYWEtOTFlZi1hYTMwNjE2NzI3Y2EiLCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiJiYTM1NmJiMC05YzU2LTRkYWEtOTFlZi1hYTMwNjE2NzI3Y2EifQ.igfSkeuYdUs3PePNZLaVUpHdWyh9-nRttluJ9buO8OE","token_type":"Bearer","not-before-policy":0,"session_state":"ba356bb0-9c56-4daa-91ef-aa30616727ca","scope":"profile email"} 
+ </msg>
+<msg time="2024-05-18T03:18:07.590622" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>keycloak</arg>
+<arg>/realms/CIAF/protocol/openid-connect/token</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${data}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.350638" elapsed="0.240009"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.591199" level="INFO">200</msg>
+<arg>${response.status_code}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.590791" elapsed="0.000440"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.591609" level="INFO">{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJvcTRrRjlfLTJweE9UTEt1Y0drNDJzRHZvNmFzNnBWbVZ3X25KRjJQYWc0In0.eyJleHAiOjE3MTYwMzQwODcsImlhdCI6MTcxNjAwMjI4NywianRpIjoiZjI2NzRiZDQtMmM3YS00OWFjLTg2MmEtZjNlNjZjMzU3MDY0IiwiaXNzIjoiaHR0cDovL3Npc2ZvbGhhLWFwaS1kZXYuaW50cmFuZXQucG9saWNpYW1pbGl0YXIuc3AuZ292LmJyL2tleWNsb2FrL3JlYWxtcy9DSUFGIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImU2MTNiZjQwLTQ0Y2UtNDY2MC1hMzgxLTg2ZDRmMzVlOTkzMCIsInR5cCI6IkJlYXJlciIsImF6cCI6InNzbyIsInNlc3Npb25fc3RhdGUiOiJiYTM1NmJiMC05YzU2LTRkYWEtOTFlZi1hYTMwNjE2NzI3Y2EiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHBzOi8vc2lzZm9saGEtZGV2LmludHJhbmV0LnBvbGljaWFtaWxpdGFyLnNwLmdvdi5iciIsImh0dHA6Ly9zaXNmb2xoYS1kZXYuaW50cmFuZXQucG9saWNpYW1pbGl0YXIuc3AuZ292LmJyIiwiaHR0cDovL2xvY2FsaG9zdCIsImh0dHA6Ly9sb2NhbGhvc3Q6OTAwMyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiQWRtaW5pc3RyYWRvciIsImRlZmF1bHQtcm9sZXMtY2lhZiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiJiYTM1NmJiMC05YzU2LTRkYWEtOTFlZi1hYTMwNjE2NzI3Y2EiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJBVVRPTUHDh8ODTyBURVNURVMiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiI2MjAyNTE1ODA1MCIsImdpdmVuX25hbWUiOiJBVVRPTUHDh8ODTyIsImZhbWlseV9uYW1lIjoiVEVTVEVTIn0.nPRLL0hDwyhJ-mAKIk6VSkZZe-FipfWs1y019y-QWFveqVuxk5XGbImzd3dUQCLd-xSlmiayyQGwWkjdk_ZRNHyZqfC21B3f19Gb0PTP0ELqQuEVKUzqBafzV4QGwgp3yToT71iLeZFGKNusYCY8c7j_Hb1RKuX7BafhDCnNg5emluS3BYQK9LNqRlUgRUTiACpoFI4yh_jv_xvViM7NAFZV8ZlRRXSQ3NBT-hC3TtBG1B9_V6UyKKhWrp51jKhTdstbZBDFv-05STkl2FVvYtcdR8phCD0wUC8GpZQWKv2o82hm3UCkUWyS4ynvO5A_aRiLbTEdmFvPyYVGGNNSrQ","expires_in":31800,"refresh_expires_in":1800,"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3OTIyYTQ3YS1jMjhiLTQzYTAtYjE5NS0yNjQwZDZkNTA4YjMifQ.eyJleHAiOjE3MTYwMDQwODcsImlhdCI6MTcxNjAwMjI4NywianRpIjoiNDg3NmViZDYtOTg4OC00OTFiLWJjYWItZmM1NGE0ZjUwN2M3IiwiaXNzIjoiaHR0cDovL3Npc2ZvbGhhLWFwaS1kZXYuaW50cmFuZXQucG9saWNpYW1pbGl0YXIuc3AuZ292LmJyL2tleWNsb2FrL3JlYWxtcy9DSUFGIiwiYXVkIjoiaHR0cDovL3Npc2ZvbGhhLWFwaS1kZXYuaW50cmFuZXQucG9saWNpYW1pbGl0YXIuc3AuZ292LmJyL2tleWNsb2FrL3JlYWxtcy9DSUFGIiwic3ViIjoiZTYxM2JmNDAtNDRjZS00NjYwLWEzODEtODZkNGYzNWU5OTMwIiwidHlwIjoiUmVmcmVzaCIsImF6cCI6InNzbyIsInNlc3Npb25fc3RhdGUiOiJiYTM1NmJiMC05YzU2LTRkYWEtOTFlZi1hYTMwNjE2NzI3Y2EiLCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiJiYTM1NmJiMC05YzU2LTRkYWEtOTFlZi1hYTMwNjE2NzI3Y2EifQ.igfSkeuYdUs3PePNZLaVUpHdWyh9-nRttluJ9buO8OE","token_type":"Bearer","not-before-policy":0,"session_state":"ba356bb0-9c56-4daa-91ef-aa30616727ca","scope":"profile email"}</msg>
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.591305" elapsed="0.000582"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.592358" level="INFO">${token} = Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJvcTRrRjlfLTJweE9UTEt1Y0drNDJzRHZvNmFzNnBWbVZ3X25KRjJQYWc0In0.eyJleHAiOjE3MTYwMzQwODcsImlhdCI6MTcxNjAwMjI4NywianRpIjoiZjI2NzRiZDQtMmM3YS00OWFjL...</msg>
+<var>${token}</var>
+<arg>Bearer ${response.json()['access_token']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.591998" elapsed="0.000378"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.592541" level="INFO">Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJvcTRrRjlfLTJweE9UTEt1Y0drNDJzRHZvNmFzNnBWbVZ3X25KRjJQYWc0In0.eyJleHAiOjE3MTYwMzQwODcsImlhdCI6MTcxNjAwMjI4NywianRpIjoiZjI2NzRiZDQtMmM3YS00OWFjLTg2MmEtZjNlNjZjMzU3MDY0IiwiaXNzIjoiaHR0cDovL3Npc2ZvbGhhLWFwaS1kZXYuaW50cmFuZXQucG9saWNpYW1pbGl0YXIuc3AuZ292LmJyL2tleWNsb2FrL3JlYWxtcy9DSUFGIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImU2MTNiZjQwLTQ0Y2UtNDY2MC1hMzgxLTg2ZDRmMzVlOTkzMCIsInR5cCI6IkJlYXJlciIsImF6cCI6InNzbyIsInNlc3Npb25fc3RhdGUiOiJiYTM1NmJiMC05YzU2LTRkYWEtOTFlZi1hYTMwNjE2NzI3Y2EiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHBzOi8vc2lzZm9saGEtZGV2LmludHJhbmV0LnBvbGljaWFtaWxpdGFyLnNwLmdvdi5iciIsImh0dHA6Ly9zaXNmb2xoYS1kZXYuaW50cmFuZXQucG9saWNpYW1pbGl0YXIuc3AuZ292LmJyIiwiaHR0cDovL2xvY2FsaG9zdCIsImh0dHA6Ly9sb2NhbGhvc3Q6OTAwMyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiQWRtaW5pc3RyYWRvciIsImRlZmF1bHQtcm9sZXMtY2lhZiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiJiYTM1NmJiMC05YzU2LTRkYWEtOTFlZi1hYTMwNjE2NzI3Y2EiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJBVVRPTUHDh8ODTyBURVNURVMiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiI2MjAyNTE1ODA1MCIsImdpdmVuX25hbWUiOiJBVVRPTUHDh8ODTyIsImZhbWlseV9uYW1lIjoiVEVTVEVTIn0.nPRLL0hDwyhJ-mAKIk6VSkZZe-FipfWs1y019y-QWFveqVuxk5XGbImzd3dUQCLd-xSlmiayyQGwWkjdk_ZRNHyZqfC21B3f19Gb0PTP0ELqQuEVKUzqBafzV4QGwgp3yToT71iLeZFGKNusYCY8c7j_Hb1RKuX7BafhDCnNg5emluS3BYQK9LNqRlUgRUTiACpoFI4yh_jv_xvViM7NAFZV8ZlRRXSQ3NBT-hC3TtBG1B9_V6UyKKhWrp51jKhTdstbZBDFv-05STkl2FVvYtcdR8phCD0wUC8GpZQWKv2o82hm3UCkUWyS4ynvO5A_aRiLbTEdmFvPyYVGGNNSrQ</msg>
+<arg>${token}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.592453" elapsed="0.000122"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.592855" level="INFO">${token} = Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJvcTRrRjlfLTJweE9UTEt1Y0drNDJzRHZvNmFzNnBWbVZ3X25KRjJQYWc0In0.eyJleHAiOjE3MTYwMzQwODcsImlhdCI6MTcxNjAwMjI4NywianRpIjoiZjI2NzRiZDQtMmM3YS00OWFjL...</msg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.592699" elapsed="0.000184"/>
+</kw>
+<status status="PASS" start="2024-05-18T03:18:07.348579" elapsed="0.244358"/>
+</kw>
+<kw name="Quando eu selecionar o tipo de componente desejado">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.593418" level="INFO">${type} = Button</msg>
+<var>${type}</var>
+<arg>Button</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.593331" elapsed="0.000103"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.593666" level="INFO">${type} = Button</msg>
+<arg>${type}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.593512" elapsed="0.000188"/>
+</kw>
+<status status="PASS" start="2024-05-18T03:18:07.593153" elapsed="0.000591"/>
+</kw>
+<kw name="Então devo obter uma lista de componentes cadastrados de acordo com o tipo">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-05-18T03:18:07.594260" level="INFO">Creating Session using : alias=components, url=http://sisfolha-dev.intranet.policiamilitar.sp.gov.br/components, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>components</arg>
+<arg>http://sisfolha-dev.intranet.policiamilitar.sp.gov.br/components</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-05-18T03:18:07.594098" elapsed="0.000284"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.594717" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJvcTRrRjlfLTJweE9UTEt1Y0drNDJzRHZvNmFzNnBWbVZ3X25KRjJQYWc0In0.eyJleHAiOjE3MTYwMzQwODcsImlhdCI6MTcxNjAwMjI4NywianRpIjoiZjI2Nz...</msg>
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.594487" elapsed="0.000249"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-05-18T03:18:07.698529" level="INFO">GET Request : url=http://sisfolha-dev.intranet.policiamilitar.sp.gov.br/components/api/v1/Components?Type=Button 
+ path_url=/components/api/v1/Components?Type=Button 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJvcTRrRjlfLTJweE9UTEt1Y0drNDJzRHZvNmFzNnBWbVZ3X25KRjJQYWc0In0.eyJleHAiOjE3MTYwMzQwODcsImlhdCI6MTcxNjAwMjI4NywianRpIjoiZjI2NzRiZDQtMmM3YS00OWFjLTg2MmEtZjNlNjZjMzU3MDY0IiwiaXNzIjoiaHR0cDovL3Npc2ZvbGhhLWFwaS1kZXYuaW50cmFuZXQucG9saWNpYW1pbGl0YXIuc3AuZ292LmJyL2tleWNsb2FrL3JlYWxtcy9DSUFGIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImU2MTNiZjQwLTQ0Y2UtNDY2MC1hMzgxLTg2ZDRmMzVlOTkzMCIsInR5cCI6IkJlYXJlciIsImF6cCI6InNzbyIsInNlc3Npb25fc3RhdGUiOiJiYTM1NmJiMC05YzU2LTRkYWEtOTFlZi1hYTMwNjE2NzI3Y2EiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHBzOi8vc2lzZm9saGEtZGV2LmludHJhbmV0LnBvbGljaWFtaWxpdGFyLnNwLmdvdi5iciIsImh0dHA6Ly9zaXNmb2xoYS1kZXYuaW50cmFuZXQucG9saWNpYW1pbGl0YXIuc3AuZ292LmJyIiwiaHR0cDovL2xvY2FsaG9zdCIsImh0dHA6Ly9sb2NhbGhvc3Q6OTAwMyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiQWRtaW5pc3RyYWRvciIsImRlZmF1bHQtcm9sZXMtY2lhZiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiJiYTM1NmJiMC05YzU2LTRkYWEtOTFlZi1hYTMwNjE2NzI3Y2EiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJBVVRPTUHDh8ODTyBURVNURVMiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiI2MjAyNTE1ODA1MCIsImdpdmVuX25hbWUiOiJBVVRPTUHDh8ODTyIsImZhbWlseV9uYW1lIjoiVEVTVEVTIn0.nPRLL0hDwyhJ-mAKIk6VSkZZe-FipfWs1y019y-QWFveqVuxk5XGbImzd3dUQCLd-xSlmiayyQGwWkjdk_ZRNHyZqfC21B3f19Gb0PTP0ELqQuEVKUzqBafzV4QGwgp3yToT71iLeZFGKNusYCY8c7j_Hb1RKuX7BafhDCnNg5emluS3BYQK9LNqRlUgRUTiACpoFI4yh_jv_xvViM7NAFZV8ZlRRXSQ3NBT-hC3TtBG1B9_V6UyKKhWrp51jKhTdstbZBDFv-05STkl2FVvYtcdR8phCD0wUC8GpZQWKv2o82hm3UCkUWyS4ynvO5A_aRiLbTEdmFvPyYVGGNNSrQ'} 
+ body=None 
+ </msg>
+<msg time="2024-05-18T03:18:07.698814" level="INFO">GET Response : url=http://sisfolha-dev.intranet.policiamilitar.sp.gov.br/components/api/v1/Components?Type=Button 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Date': 'Sat, 18 May 2024 03:18:07 GMT', 'Server': 'APISIX'} 
+ body={"typeComponent":"Button","components":[{"id":"23a79def-266d-4126-9aeb-edc58a74dd35","name":"Botão Pesquisar","createdAt":"2024-05-14T17:50:47.416985"},{"id":"12348ee7-f75e-4b44-97cb-80b3c5415523","name":"RE","createdAt":"2024-05-17T12:56:28.820908"}]} 
+ </msg>
+<msg time="2024-05-18T03:18:07.698929" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>components</arg>
+<arg>/api/v1/Components</arg>
+<arg>params=Type=${type}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.594838" elapsed="0.104111"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.699498" level="INFO">200</msg>
+<arg>${response.status_code}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.699086" elapsed="0.000452"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.699955" level="INFO">{"typeComponent":"Button","components":[{"id":"23a79def-266d-4126-9aeb-edc58a74dd35","name":"Bot\xc3\xa3o Pesquisar","createdAt":"2024-05-14T17:50:47.416985"},{"id":"12348ee7-f75e-4b44-97cb-80b3c5415523","name":"RE","createdAt":"2024-05-17T12:56:28.820908"}]}</msg>
+<arg>${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.699615" elapsed="0.000372"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${type}</arg>
+<arg>${response.json()['typeComponent']}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.700460" elapsed="0.000392"/>
+</kw>
+<arg>${response.status_code} == 200</arg>
+<arg>Should Be Equal As Strings</arg>
+<arg>${type}</arg>
+<arg>${response.json()['typeComponent']}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.700069" elapsed="0.000823"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2024-05-18T03:18:07.701100" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<arg>${response}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.700971" elapsed="0.000155"/>
+</kw>
+<status status="PASS" start="2024-05-18T03:18:07.593911" elapsed="0.107260"/>
+</kw>
+<kw name="Ou devo obter um retorno de dados não encontrados">
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${response.status_code} == 404</arg>
+<arg>Should Be Equal As Strings</arg>
+<arg>Components or component not found</arg>
+<arg>${response.json()['detail']}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2024-05-18T03:18:07.701500" elapsed="0.000301"/>
+</kw>
+<status status="PASS" start="2024-05-18T03:18:07.701332" elapsed="0.000516"/>
+</kw>
+<status status="PASS" start="2024-05-18T03:18:07.348097" elapsed="0.353874"/>
+</test>
+<doc>Deve retornar a lista de componentes cadastrados de acordo com o tipo</doc>
+<status status="PASS" start="2024-05-18T03:18:07.298297" elapsed="0.403994"/>
+</suite>
+<status status="PASS" start="2024-05-18T03:18:07.297521" elapsed="0.405315"/>
+</suite>
+<status status="PASS" start="2024-05-18T03:18:07.279665" elapsed="0.423544"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Tests">Tests</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Api">Tests.Api</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1-s1" name="Components">Tests.Api.Components</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
