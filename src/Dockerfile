@@ -4,5 +4,4 @@ FROM python:3
 RUN pip install --upgrade robotframework \
     robotframework-browser \
     robotframework-seleniumlibrary \
-    robotframework-requests \
-    RESTinstance
+    robotframework-requests
